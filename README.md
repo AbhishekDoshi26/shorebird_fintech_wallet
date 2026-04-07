@@ -1,16 +1,59 @@
-# shorebird_fintech_wallet
+# Shorebird Safe-Guard: Fintech Wallet Demo
 
-A new Flutter project.
+This project demonstrates a professional, enterprise-grade Flutter architecture designed for **Logic-Level Hotfixes** using [Shorebird](https://shorebird.dev).
 
-## Getting Started
+## 🏗️ Architecture: The "Antigravity + BLoC" Hybrid
 
-This project is a starting point for a Flutter application.
+To ensure stability and patchability, the app uses a decoupled architecture:
 
-A few resources to get you started if this is your first Flutter project:
+### 1. **Antigravity Store (Global Logic Layer)**
+Located in `lib/store/`, this layer acts as the single source of truth. It manages:
+*   Reactive balance updates.
+*   Transaction history.
+*   Business logic rules (like fee calculations).
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### 2. **BLoC (Presentation Layer)**
+Located in `lib/presentation/features/*/bloc/`, these BLoCs act as bridges. They:
+*   Subscribe to the Antigravity Store.
+*   Emit UI-specific states (`Loading`, `Success`, `Preview`).
+*   **Crucially:** They do not contain business logic; they only orchestrate calls to the logic layer.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### 3. **UI (Material 3 Dark Mode)**
+A reactive, premium Fintech UI built with Google Fonts and custom animations.
+
+---
+
+## 🎯 The Shorebird Patch Target
+
+The core of this demo is a **critical business logic bug** located in:
+`lib/store/wallet_store/transaction_logic.dart`
+
+### **The Scenario**
+Management required internal transfers (between friends) to be **free ($0)** and standard transfers to have a **1% fee**.
+
+### **The Bug (Current Implementation)**
+The current logic accidentally applies a flat **5% fee** to every transaction, ignoring the internal flags.
+
+```dart
+// BUGGY LOGIC
+double calculateFee(double amount, bool isInternal) {
+  return amount * 0.05; // Fixed 5% fee for everyone
+}
+```
+
+### **The Fix (Shorebird Patch)**
+Because this logic is decoupled from the UI and state management, a Shorebird patch can swap the `calculateFee` implementation instantly without requiring a full app store release or losing the user's current session state.
+
+```dart
+// FIXED LOGIC (To be patched)
+double calculateFee(double amount, bool isInternal) {
+  if (isInternal) return 0.0;
+  return amount * 0.01;
+}
+```
+
+## 🛠️ Tech Stack
+*   **Dependency Injection:** `get_it` + `injectable`
+*   **Networking:** `dio`
+*   **State Management:** Antigravity (Store) + BLoC (Presentation)
+*   **Stlying:** Vanilla CSS/Material 3 Dark + Google Fonts (Outfit)
