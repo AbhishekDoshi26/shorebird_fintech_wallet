@@ -2,11 +2,11 @@
 
 This project demonstrates a professional, enterprise-grade Flutter architecture designed for **Logic-Level Hotfixes** using [Shorebird](https://shorebird.dev).
 
-## 🏗️ Architecture: The "Antigravity + BLoC" Hybrid
+## 🏗️ Architecture: The "Reactive Store + BLoC" Hybrid
 
 To ensure stability and patchability, the app uses a decoupled architecture:
 
-### 1. **Antigravity Store (Global Logic Layer)**
+### 1. **Reactive Store (Global Logic Layer)**
 Located in `lib/store/`, this layer acts as the single source of truth. It manages:
 *   Reactive balance updates.
 *   Transaction history.
@@ -14,7 +14,7 @@ Located in `lib/store/`, this layer acts as the single source of truth. It manag
 
 ### 2. **BLoC (Presentation Layer)**
 Located in `lib/presentation/features/*/bloc/`, these BLoCs act as bridges. They:
-*   Subscribe to the Antigravity Store.
+*   Subscribe to the Global Reactive Store.
 *   Emit UI-specific states (`Loading`, `Success`, `Preview`).
 *   **Crucially:** They do not contain business logic; they only orchestrate calls to the logic layer.
 
@@ -55,5 +55,5 @@ double calculateFee(double amount, bool isInternal) {
 ## 🛠️ Tech Stack
 *   **Dependency Injection:** `get_it` + `injectable`
 *   **Networking:** `dio`
-*   **State Management:** Antigravity (Store) + BLoC (Presentation)
+*   **State Management:** Global Reactive Store + BLoC (Presentation)
 *   **Stlying:** Vanilla CSS/Material 3 Dark + Google Fonts (Outfit)
