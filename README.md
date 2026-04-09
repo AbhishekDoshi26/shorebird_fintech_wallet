@@ -1,6 +1,6 @@
 # Shorebird Safe-Guard: Fintech Wallet Demo
 
-[![Watch the Demo](https://img.youtube.com/vi/vRzG3dWfyuc/maxresdefault.jpg)](https://youtu.be/vRzG3dWfyuc)
+[![Watch the Demo](thumbnail.png)](https://youtu.be/vRzG3dWfyuc)
 
 This project demonstrates a professional, enterprise-grade Flutter architecture designed for **Logic-Level Hotfixes** using [Shorebird](https://shorebird.dev).
 
