@@ -1,5 +1,7 @@
 # Shorebird Safe-Guard: Fintech Wallet Demo
 
+![App Demo](demo.mov)
+
 This project demonstrates a professional, enterprise-grade Flutter architecture designed for **Logic-Level Hotfixes** using [Shorebird](https://shorebird.dev).
 
 ## 🏗️ Architecture: The "Reactive Store + BLoC" Hybrid
